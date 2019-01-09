@@ -1,0 +1,11 @@
+/build
+/cmake-build-debug
+/.idea
+
+!*.c
+!*.cpp
+!*.cxx
+!*.cc
+!*.h
+!Makefile
+!.gitignore
