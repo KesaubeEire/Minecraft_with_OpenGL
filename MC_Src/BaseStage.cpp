@@ -187,13 +187,12 @@ int main()
     // ✅Step3_生成基本Shader
     // build and compile our shader zprogram
     // ------------------------------------
-    Shader Shader_Block_Grass("MC_Shaders/vs_bolck001.glsl", "MC_Shaders/fs_block001.glsl");
+    Shader Shader_Block_Grass("MC_Shaders/vs_block001.glsl", "MC_Shaders/fs_block001.glsl");
 
 
     // ----------- diffuseMap ----------- //
     unsigned int diffuseMap_top = loadTexture(FileSystem::getPath("MC_Resources/Textures/grass_block_top.png").c_str());
-    unsigned int diffuseMap_side = loadTexture(
-            FileSystem::getPath("MC_Resources/Textures/grass_block_side.png").c_str());
+    unsigned int diffuseMap_side = loadTexture(FileSystem::getPath("MC_Resources/Textures/grass_block_side.png").c_str());
     unsigned int diffuseMap_bottom = loadTexture(FileSystem::getPath("MC_Resources/Textures/coarse_dirt.png").c_str());
     // ----------- diffuseMap ----------- //
 
