@@ -3,8 +3,14 @@ project(MineCraft_OpenGL)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(SOURCE_FILES GLAD/src/glad.c)
-set(HEADER_FILES dependencies/Camera.h dependencies/shader.h dependencies/filesystem.h)
+set(SOURCE_FILES)
+set(HEADER_FILES
+        GLAD/src/glad.c
+        dependencies/Camera.h
+        dependencies/shader.h
+        dependencies/filesystem.h
+        dependencies/freetype/freetype.h
+        )
 
 set(dir ${CMAKE_CURRENT_SOURCE_DIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${dir}/build)

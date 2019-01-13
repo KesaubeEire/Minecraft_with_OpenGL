@@ -1,6 +1,4 @@
-// Standard Sources
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+// Self Made
 #include "../dependencies/shader.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "../dependencies/stb_image.h"
@@ -9,15 +7,23 @@
 #include "map_generate/map_generate.h"
 
 // Standard Headers
-#include <cstdio>
-#include <cstdlib>
-#include <iostream>
-#include <stack>
-#include <queue>
+#include <map>
 #include <string>
+#include <iostream>
+#include <strstream>
+
+// GL Headers
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
+//#include <ft2build.h>
+//#include FT_FREETYPE_H
+//#include <freetype/freetype.h>
+//#include <freetype/ftglyph.h>
+#include "freetype/freetype.h"
 
 
 // 回调操作:窗口 | 鼠标 | 滚轮 | 键盘
@@ -29,8 +35,8 @@ void processInput(GLFWwindow *window);
 unsigned int loadTexture(char const *path);
 
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_WIDTH = 1600;
+const unsigned int SCR_HEIGHT = 900;
 
 // camera
 Camera camera(glm::vec3(15, 30, 15));
@@ -192,7 +198,8 @@ int main()
 
     // ----------- diffuseMap ----------- //
     unsigned int diffuseMap_top = loadTexture(FileSystem::getPath("MC_Resources/Textures/grass_block_top.png").c_str());
-    unsigned int diffuseMap_side = loadTexture(FileSystem::getPath("MC_Resources/Textures/grass_block_side.png").c_str());
+    unsigned int diffuseMap_side = loadTexture(
+            FileSystem::getPath("MC_Resources/Textures/grass_block_side.png").c_str());
     unsigned int diffuseMap_bottom = loadTexture(FileSystem::getPath("MC_Resources/Textures/coarse_dirt.png").c_str());
     // ----------- diffuseMap ----------- //
 
@@ -226,7 +233,12 @@ int main()
                   << "Position: "
                   << (int) camera.Position.x << " "
                   << (int) camera.Position.y << " "
-                  << (int) camera.Position.z << std::endl;
+                  << (int) camera.Position.z << "\t"
+                  << "Camera.Front: "
+                  << camera.Front.x << " "
+                  << camera.Front.y << " "
+                  << camera.Front.z << " "
+                  << std::endl;
 
         // input
         // -----
@@ -234,7 +246,7 @@ int main()
 
         // render
         // ------
-        glClearColor(0.6f, 0.6f, 0.6f, 1.0f);
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // be sure to activate shader when setting uniforms/drawing objects

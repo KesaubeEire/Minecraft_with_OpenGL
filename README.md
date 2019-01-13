@@ -3,3 +3,6 @@
 For long time I did't find a very proper project to combine Cpp Learning with OpenGL Learning.  
 So at the time I find the 7-days making video on Youtube I get it very excited.  
 It's absolutely a childish project, wish I can complete it.
+
+## Difficulites Summary
+- Big problem in config env especially in Freetype2.THX [bgfx](https://github.com/bkaradzic/bgfx)'s source code help me.
