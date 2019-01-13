@@ -5,6 +5,7 @@
 #include "../dependencies/Camera.h"
 #include "../dependencies/filesystem.h"
 #include "map_generate/map_generate.h"
+#include "../dependencies/freetype/freetype.h"
 
 // Standard Headers
 #include <map>
@@ -19,11 +20,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-//#include <ft2build.h>
-//#include FT_FREETYPE_H
-//#include <freetype/freetype.h>
-//#include <freetype/ftglyph.h>
-#include "freetype/freetype.h"
+
 
 
 // 回调操作:窗口 | 鼠标 | 滚轮 | 键盘

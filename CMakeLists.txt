@@ -9,7 +9,7 @@ set(HEADER_FILES
         dependencies/Camera.h
         dependencies/shader.h
         dependencies/filesystem.h
-        dependencies/freetype/freetype.h
+#        dependencies/freetype/freetype.h
         )
 
 set(dir ${CMAKE_CURRENT_SOURCE_DIR})
