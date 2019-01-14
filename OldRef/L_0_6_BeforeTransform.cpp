@@ -1,11 +1,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include "../dependencies/shader.h"
+#include "../dependencies/CMakeFiles/shader.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 
-#include "../dependencies/stb_image.h"
+#include "../dependencies/CMakeFiles/stb_image.h"
 
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);

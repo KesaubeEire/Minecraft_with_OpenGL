@@ -1,3 +1,6 @@
+#include <Arduino.h>
+#line 1 "/Users/w/CLionProjects/MineCraft_OpenGL_Version/MC_Src/map_generate/map_generate.h"
+#line 1 "/Users/w/CLionProjects/MineCraft_OpenGL_Version/MC_Src/map_generate/map_generate.h"
 //
 // Created by W/Lee on 2019-01-08.
 //
@@ -127,9 +130,8 @@ class map_generate
   public:
     vector<vector<int>> GenerateMap()
     {
-        // todo:Clion时放开注释
         // 读写文件流
-        // ofstream mapFile(dir_config);
+        ofstream mapFile(dir_config);
         // if (!mapFile)
         // {
         //     // throw runtime_error("Map file Open Error!");
@@ -143,7 +145,7 @@ class map_generate
         unsigned block_num = 0;
 
         // 搞出来vector存储地形数据
-        vector<vector<int> > map;
+        vector<vector<int>> map;
         for (float i = 0; i < regionX; ++i)
         {
             vector<int> height_row;
@@ -164,16 +166,14 @@ class map_generate
                 block_num += height;
 
                 //写文件
-                // todo:Clion时放开注释
-                // mapFile << height << "\t";
+                mapFile << height << "\t";
             }
             map.push_back(height_row);
             //            std::cout << std::endl;
 
             //写文件
-            // todo:Clion时放开注释
-            // mapFile << "\n"
-            //         << endl;
+            mapFile << "\n"
+                    << endl;
         }
         cout << "地图生成block:\t" << block_num << endl;
 
@@ -182,3 +182,4 @@ class map_generate
 };
 
 #endif //MINECRAFT_OPENGL_MAP_GENERATE_H
+

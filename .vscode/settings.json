@@ -1,0 +1,10 @@
+{
+    "cmake.configureOnOpen": true,
+    "files.associations": {
+        "*.unity": "yaml",
+        "string": "cpp",
+        "random": "cpp",
+        "iostream": "cpp",
+        "ostream": "cpp"
+    }
+}

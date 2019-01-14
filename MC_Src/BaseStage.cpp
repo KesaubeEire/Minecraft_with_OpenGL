@@ -1,11 +1,11 @@
 // Self Made
-#include "../dependencies/shader.h"
 #define STB_IMAGE_IMPLEMENTATION
-#include "../dependencies/stb_image.h"
-#include "../dependencies/Camera.h"
-#include "../dependencies/filesystem.h"
-#include "map_generate/map_generate.h"
+#include "../dependencies/selfmade/shader.h"
+#include "../dependencies/selfmade/stb_image.h"
+#include "../dependencies/selfmade/Camera.h"
+#include "../dependencies/selfmade/filesystem.h"
 #include "../dependencies/freetype/freetype.h"
+#include "map_generate/map_generate.h"
 
 // Standard Headers
 #include <map>
@@ -21,8 +21,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
-
-
 // 回调操作:窗口 | 鼠标 | 滚轮 | 键盘
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void mouse_callback(GLFWwindow *window, double xpos, double ypos);
@@ -32,8 +30,8 @@ void processInput(GLFWwindow *window);
 unsigned int loadTexture(char const *path);
 
 // settings
-const unsigned int SCR_WIDTH = 1600;
-const unsigned int SCR_HEIGHT = 900;
+const unsigned int SCR_WIDTH = 800;
+const unsigned int SCR_HEIGHT = 600;
 
 // camera
 Camera camera(glm::vec3(15, 30, 15));
@@ -54,6 +52,8 @@ bool isCursorHidden;
 
 int main()
 {
+
+    //region ✅Step1_初始化窗口
     // ✅Step1_初始化窗口
     // ------------------------------
     glfwInit();
@@ -97,6 +97,7 @@ int main()
     // configure global opengl state
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
+    //endregion
 
 
 
@@ -283,15 +284,7 @@ int main()
 
         // render containers
         glBindVertexArray(cubeVAO);
-//        for (unsigned int i = 0; i < 1; i++)
-//        {
-//            // calculate the model matrix for each object and pass it to shader before drawing
-//            glm::mat4 model;
-//            model = glm::translate(model, cubePositions[i]);
-//            Shader_Block_Grass.setMat4("model", model);
-//
-//            glDrawArrays(GL_TRIANGLES, 0, 36);
-//        }
+
 
         // 读取地图 - 绘制地形
         int Row = 0;
@@ -337,8 +330,10 @@ int main()
 }
 
 
-// process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
-// ---------------------------------------------------------------------------------------------------------
+// process all input: query GLFW whether
+// -------------------------------------
+// relevant keys are pressed/released this frame and react accordingly
+// --------------------------------------------------------------------
 void processInput(GLFWwindow *window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -357,7 +352,7 @@ void processInput(GLFWwindow *window)
         camera.Position.y += 0.1f;
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
     {
-        camera.ChangeSpeed(7);
+        camera.ChangeSpeed(10);
     }
     else
     {
@@ -430,7 +425,10 @@ unsigned int loadTexture(char const *path)
     glGenTextures(1, &textureID);
 
     int width, height, nrComponents;
-    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
+
+    // tell stb_image.h to flip loaded texture's on the y-axis.
+    stbi_set_flip_vertically_on_load(true);
+
     unsigned char *data = stbi_load(path, &width, &height, &nrComponents, 0);
     if (data)
     {
