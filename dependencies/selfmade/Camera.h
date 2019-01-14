@@ -193,5 +193,5 @@ private:
         Up = glm::normalize(glm::cross(Right, Front));
     }
 };
-
+// OPENGLSETUP_CAMERA_H
 #endif

@@ -1,4 +1,4 @@
-# Install script for directory: /Users/w/CLionProjects/OpenGL_awesome/dependencies
+# Install script for directory: /Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/cmake_install.cmake")
+  include("/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/cmake_install.cmake")
 
 endif()
 

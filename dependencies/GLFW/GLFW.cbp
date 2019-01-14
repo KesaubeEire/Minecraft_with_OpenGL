@@ -8,168 +8,168 @@
 		<Option virtualFolders="CMake Files\;CMake Files\dependencies\;CMake Files\dependencies\GLFW\;CMake Files\dependencies\GLFW\CMake\;CMake Files\dependencies\GLFW\CMake\modules\;CMake Files\dependencies\GLFW\src\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW"/>
+				<Option working_dir="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -f &quot;/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="uninstall">
-				<Option working_dir="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW"/>
+				<Option working_dir="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/Makefile&quot;  VERBOSE=1 uninstall"/>
-					<CompileFile command="/usr/bin/make -f &quot;/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/Makefile&quot;  VERBOSE=1 uninstall"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="glfw">
-				<Option output="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/libglfw3.a" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src"/>
+				<Option output="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/libglfw3.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src"/>
 				<Option object_output="./"/>
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add option="-D_GLFW_USE_CONFIG_H"/>
-					<Add directory="/Users/w/CLionProjects/OpenGL_awesome/include"/>
-					<Add directory="/Users/w/CLionProjects/OpenGL_awesome/GLAD/include"/>
-					<Add directory="/Users/w/CLionProjects/OpenGL_awesome/glm/include"/>
-					<Add directory="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/include"/>
-					<Add directory="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src"/>
+					<Add directory="/Users/w/CLionProjects/MineCraft_OpenGL_Version/include"/>
+					<Add directory="/Users/w/CLionProjects/MineCraft_OpenGL_Version/GLAD/include"/>
+					<Add directory="/Users/w/CLionProjects/MineCraft_OpenGL_Version/glm/include"/>
+					<Add directory="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/include"/>
+					<Add directory="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/Makefile&quot;  VERBOSE=1 glfw"/>
-					<CompileFile command="/usr/bin/make -f &quot;/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/Makefile&quot;  VERBOSE=1 glfw"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="glfw/fast">
-				<Option output="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/libglfw3.a" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src"/>
+				<Option output="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/libglfw3.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src"/>
 				<Option object_output="./"/>
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add option="-D_GLFW_USE_CONFIG_H"/>
-					<Add directory="/Users/w/CLionProjects/OpenGL_awesome/include"/>
-					<Add directory="/Users/w/CLionProjects/OpenGL_awesome/GLAD/include"/>
-					<Add directory="/Users/w/CLionProjects/OpenGL_awesome/glm/include"/>
-					<Add directory="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/include"/>
-					<Add directory="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src"/>
+					<Add directory="/Users/w/CLionProjects/MineCraft_OpenGL_Version/include"/>
+					<Add directory="/Users/w/CLionProjects/MineCraft_OpenGL_Version/GLAD/include"/>
+					<Add directory="/Users/w/CLionProjects/MineCraft_OpenGL_Version/glm/include"/>
+					<Add directory="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/include"/>
+					<Add directory="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/Makefile&quot;  VERBOSE=1 glfw/fast"/>
-					<CompileFile command="/usr/bin/make -f &quot;/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/Makefile&quot;  VERBOSE=1 glfw/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/include/GLFW/glfw3.h">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/include/GLFW/glfw3.h">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/include/GLFW/glfw3native.h">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/include/GLFW/glfw3native.h">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/cocoa_init.m">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/cocoa_init.m">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/cocoa_joystick.h">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/cocoa_joystick.h">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/cocoa_joystick.m">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/cocoa_joystick.m">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/cocoa_monitor.m">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/cocoa_monitor.m">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/cocoa_platform.h">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/cocoa_platform.h">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/cocoa_time.c">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/cocoa_time.c">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/cocoa_window.m">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/cocoa_window.m">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/context.c">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/context.c">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/egl_context.c">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/egl_context.c">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/egl_context.h">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/egl_context.h">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/glfw_config.h">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/glfw_config.h">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/init.c">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/init.c">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/input.c">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/input.c">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/internal.h">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/internal.h">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/monitor.c">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/monitor.c">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/nsgl_context.h">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/nsgl_context.h">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/nsgl_context.m">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/nsgl_context.m">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/osmesa_context.c">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/osmesa_context.c">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/osmesa_context.h">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/osmesa_context.h">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/posix_thread.c">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/posix_thread.c">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/posix_thread.h">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/posix_thread.h">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/vulkan.c">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/vulkan.c">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/window.c">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/window.c">
 			<Option target="glfw"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/CMakeLists.txt">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/CMakeLists.txt">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\dependencies\"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/CMakeLists.txt">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\dependencies\GLFW\"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/cmake_uninstall.cmake.in">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/cmake_uninstall.cmake.in">
 			<Option virtualFolder="CMake Files\dependencies\GLFW\"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/CMake/modules/FindVulkan.cmake">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/CMake/modules/FindVulkan.cmake">
 			<Option virtualFolder="CMake Files\dependencies\GLFW\CMake\modules\"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/CMakeLists.txt">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\dependencies\GLFW\src\"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/glfw3.pc.in">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/glfw3.pc.in">
 			<Option virtualFolder="CMake Files\dependencies\GLFW\src\"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/glfw3Config.cmake.in">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/glfw3Config.cmake.in">
 			<Option virtualFolder="CMake Files\dependencies\GLFW\src\"/>
 		</Unit>
-		<Unit filename="/Users/w/CLionProjects/OpenGL_awesome/dependencies/GLFW/src/glfw_config.h.in">
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/GLFW/src/glfw_config.h.in">
 			<Option virtualFolder="CMake Files\dependencies\GLFW\src\"/>
 		</Unit>
 	</Project>

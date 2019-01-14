@@ -126,14 +126,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/w/CLionProjects/MineCraft_OpenGL_Version && $(CMAKE_COMMAND) -E cmake_progress_start /Users/w/CLionProjects/MineCraft_OpenGL_Version/CMakeFiles /Users/w/CLionProjects/MineCraft_OpenGL_Version/dependencies/CMakeFiles/progress.marks
-	cd /Users/w/CLionProjects/MineCraft_OpenGL_Version && $(MAKE) -f CMakeFiles/Makefile2 dependencies/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/w/CLionProjects/MineCraft_OpenGL_Version/CMakeFiles /Users/w/CLionProjects/MineCraft_OpenGL_Version/CMakeFiles/progress.marks
+	$(MAKE) -f CMakeFiles/Makefile2 all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/w/CLionProjects/MineCraft_OpenGL_Version/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/w/CLionProjects/MineCraft_OpenGL_Version && $(MAKE) -f CMakeFiles/Makefile2 dependencies/clean
+	$(MAKE) -f CMakeFiles/Makefile2 clean
 .PHONY : clean
 
 # The main clean target
@@ -143,18 +143,154 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/w/CLionProjects/MineCraft_OpenGL_Version && $(MAKE) -f CMakeFiles/Makefile2 dependencies/preinstall
+	$(MAKE) -f CMakeFiles/Makefile2 preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/w/CLionProjects/MineCraft_OpenGL_Version && $(MAKE) -f CMakeFiles/Makefile2 dependencies/preinstall
+	$(MAKE) -f CMakeFiles/Makefile2 preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/w/CLionProjects/MineCraft_OpenGL_Version && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+#=============================================================================
+# Target rules for targets named L_7_2_RenderText
+
+# Build rule for target.
+L_7_2_RenderText: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 L_7_2_RenderText
+.PHONY : L_7_2_RenderText
+
+# fast build rule for target.
+L_7_2_RenderText/fast:
+	$(MAKE) -f CMakeFiles/L_7_2_RenderText.dir/build.make CMakeFiles/L_7_2_RenderText.dir/build
+.PHONY : L_7_2_RenderText/fast
+
+#=============================================================================
+# Target rules for targets named MCOG_001
+
+# Build rule for target.
+MCOG_001: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 MCOG_001
+.PHONY : MCOG_001
+
+# fast build rule for target.
+MCOG_001/fast:
+	$(MAKE) -f CMakeFiles/MCOG_001.dir/build.make CMakeFiles/MCOG_001.dir/build
+.PHONY : MCOG_001/fast
+
+#=============================================================================
+# Target rules for targets named uninstall
+
+# Build rule for target.
+uninstall: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 uninstall
+.PHONY : uninstall
+
+# fast build rule for target.
+uninstall/fast:
+	$(MAKE) -f dependencies/GLFW/CMakeFiles/uninstall.dir/build.make dependencies/GLFW/CMakeFiles/uninstall.dir/build
+.PHONY : uninstall/fast
+
+#=============================================================================
+# Target rules for targets named glfw
+
+# Build rule for target.
+glfw: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 glfw
+.PHONY : glfw
+
+# fast build rule for target.
+glfw/fast:
+	$(MAKE) -f dependencies/GLFW/src/CMakeFiles/glfw.dir/build.make dependencies/GLFW/src/CMakeFiles/glfw.dir/build
+.PHONY : glfw/fast
+
+GLAD/src/glad.o: GLAD/src/glad.c.o
+
+.PHONY : GLAD/src/glad.o
+
+# target to build an object file
+GLAD/src/glad.c.o:
+	$(MAKE) -f CMakeFiles/L_7_2_RenderText.dir/build.make CMakeFiles/L_7_2_RenderText.dir/GLAD/src/glad.c.o
+	$(MAKE) -f CMakeFiles/MCOG_001.dir/build.make CMakeFiles/MCOG_001.dir/GLAD/src/glad.c.o
+.PHONY : GLAD/src/glad.c.o
+
+GLAD/src/glad.i: GLAD/src/glad.c.i
+
+.PHONY : GLAD/src/glad.i
+
+# target to preprocess a source file
+GLAD/src/glad.c.i:
+	$(MAKE) -f CMakeFiles/L_7_2_RenderText.dir/build.make CMakeFiles/L_7_2_RenderText.dir/GLAD/src/glad.c.i
+	$(MAKE) -f CMakeFiles/MCOG_001.dir/build.make CMakeFiles/MCOG_001.dir/GLAD/src/glad.c.i
+.PHONY : GLAD/src/glad.c.i
+
+GLAD/src/glad.s: GLAD/src/glad.c.s
+
+.PHONY : GLAD/src/glad.s
+
+# target to generate assembly for a file
+GLAD/src/glad.c.s:
+	$(MAKE) -f CMakeFiles/L_7_2_RenderText.dir/build.make CMakeFiles/L_7_2_RenderText.dir/GLAD/src/glad.c.s
+	$(MAKE) -f CMakeFiles/MCOG_001.dir/build.make CMakeFiles/MCOG_001.dir/GLAD/src/glad.c.s
+.PHONY : GLAD/src/glad.c.s
+
+MC_Src/BaseStage.o: MC_Src/BaseStage.cpp.o
+
+.PHONY : MC_Src/BaseStage.o
+
+# target to build an object file
+MC_Src/BaseStage.cpp.o:
+	$(MAKE) -f CMakeFiles/MCOG_001.dir/build.make CMakeFiles/MCOG_001.dir/MC_Src/BaseStage.cpp.o
+.PHONY : MC_Src/BaseStage.cpp.o
+
+MC_Src/BaseStage.i: MC_Src/BaseStage.cpp.i
+
+.PHONY : MC_Src/BaseStage.i
+
+# target to preprocess a source file
+MC_Src/BaseStage.cpp.i:
+	$(MAKE) -f CMakeFiles/MCOG_001.dir/build.make CMakeFiles/MCOG_001.dir/MC_Src/BaseStage.cpp.i
+.PHONY : MC_Src/BaseStage.cpp.i
+
+MC_Src/BaseStage.s: MC_Src/BaseStage.cpp.s
+
+.PHONY : MC_Src/BaseStage.s
+
+# target to generate assembly for a file
+MC_Src/BaseStage.cpp.s:
+	$(MAKE) -f CMakeFiles/MCOG_001.dir/build.make CMakeFiles/MCOG_001.dir/MC_Src/BaseStage.cpp.s
+.PHONY : MC_Src/BaseStage.cpp.s
+
+OldRef/L_7_2_RenderingText.o: OldRef/L_7_2_RenderingText.cpp.o
+
+.PHONY : OldRef/L_7_2_RenderingText.o
+
+# target to build an object file
+OldRef/L_7_2_RenderingText.cpp.o:
+	$(MAKE) -f CMakeFiles/L_7_2_RenderText.dir/build.make CMakeFiles/L_7_2_RenderText.dir/OldRef/L_7_2_RenderingText.cpp.o
+.PHONY : OldRef/L_7_2_RenderingText.cpp.o
+
+OldRef/L_7_2_RenderingText.i: OldRef/L_7_2_RenderingText.cpp.i
+
+.PHONY : OldRef/L_7_2_RenderingText.i
+
+# target to preprocess a source file
+OldRef/L_7_2_RenderingText.cpp.i:
+	$(MAKE) -f CMakeFiles/L_7_2_RenderText.dir/build.make CMakeFiles/L_7_2_RenderText.dir/OldRef/L_7_2_RenderingText.cpp.i
+.PHONY : OldRef/L_7_2_RenderingText.cpp.i
+
+OldRef/L_7_2_RenderingText.s: OldRef/L_7_2_RenderingText.cpp.s
+
+.PHONY : OldRef/L_7_2_RenderingText.s
+
+# target to generate assembly for a file
+OldRef/L_7_2_RenderingText.cpp.s:
+	$(MAKE) -f CMakeFiles/L_7_2_RenderText.dir/build.make CMakeFiles/L_7_2_RenderText.dir/OldRef/L_7_2_RenderingText.cpp.s
+.PHONY : OldRef/L_7_2_RenderingText.cpp.s
 
 # Help Target
 help:
@@ -166,8 +302,21 @@ help:
 	@echo "... install/strip"
 	@echo "... install"
 	@echo "... list_install_components"
+	@echo "... L_7_2_RenderText"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... MCOG_001"
+	@echo "... uninstall"
+	@echo "... glfw"
+	@echo "... GLAD/src/glad.o"
+	@echo "... GLAD/src/glad.i"
+	@echo "... GLAD/src/glad.s"
+	@echo "... MC_Src/BaseStage.o"
+	@echo "... MC_Src/BaseStage.i"
+	@echo "... MC_Src/BaseStage.s"
+	@echo "... OldRef/L_7_2_RenderingText.o"
+	@echo "... OldRef/L_7_2_RenderingText.i"
+	@echo "... OldRef/L_7_2_RenderingText.s"
 .PHONY : help
 
 
@@ -179,6 +328,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/w/CLionProjects/MineCraft_OpenGL_Version && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

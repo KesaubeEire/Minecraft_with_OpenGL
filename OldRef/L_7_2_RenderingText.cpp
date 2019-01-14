@@ -1,5 +1,6 @@
-// Self Made
 #define STB_IMAGE_IMPLEMENTATION
+
+// Self Made
 #include "../dependencies/selfmade/shader.h"
 #include "../dependencies/selfmade/stb_image.h"
 #include "../dependencies/selfmade/Camera.h"
@@ -19,7 +20,6 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-
 using namespace std;
 
 // Properties
@@ -35,10 +35,13 @@ struct Character
 };
 
 std::map<GLchar, Character> Characters;
-GLuint VAO, VBO;
 
-void RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
+GLuint textVAO, textVBO;
 
+void RenderText(Shader &shader,
+                std::string text,
+                GLfloat x, GLfloat y,
+                GLfloat scale, glm::vec3 color);
 
 // The MAIN function, from here we start our application and run the Game loop
 int main()
@@ -60,7 +63,7 @@ int main()
     glfwMakeContextCurrent(window);
 
     //GLad:
-    if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cout << "Fail to initialize GLAD" << std::endl;
     }
@@ -77,8 +80,8 @@ int main()
 
     // Compile and setup the shader
     Shader shader(
-            "/Kesa/Dasan/ProgramWork/Cpp/OpenGL_LearningTest/CppPrimerLearning/CppPri/Shaders/text_vs.glsl",
-            "/Kesa/Dasan/ProgramWork/Cpp/OpenGL_LearningTest/CppPrimerLearning/CppPri/Shaders/text_fs.glsl");
+        "/Kesa/Dasan/ProgramWork/Cpp/OpenGL_LearningTest/CppPrimerLearning/CppPri/Shaders/text_vs.glsl",
+        "/Kesa/Dasan/ProgramWork/Cpp/OpenGL_LearningTest/CppPrimerLearning/CppPri/Shaders/text_fs.glsl");
     glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(WIDTH), 0.0f, static_cast<GLfloat>(HEIGHT));
     shader.use();
     glUniformMatrix4fv(glGetUniformLocation(shader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
@@ -115,15 +118,15 @@ int main()
         glGenTextures(1, &texture);
         glBindTexture(GL_TEXTURE_2D, texture);
         glTexImage2D(
-                GL_TEXTURE_2D,
-                0,
-                GL_RED,
-                face->glyph->bitmap.width,
-                face->glyph->bitmap.rows,
-                0,
-                GL_RED,
-                GL_UNSIGNED_BYTE,
-                face->glyph->bitmap.buffer);
+            GL_TEXTURE_2D,
+            0,
+            GL_RED,
+            face->glyph->bitmap.width,
+            face->glyph->bitmap.rows,
+            0,
+            GL_RED,
+            GL_UNSIGNED_BYTE,
+            face->glyph->bitmap.buffer);
         // Set texture options
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -131,10 +134,10 @@ int main()
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         // Now store character for later use
         Character character = {
-                texture,
-                glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-                glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-                (unsigned) face->glyph->advance.x};
+            texture,
+            glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
+            glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
+            (unsigned)face->glyph->advance.x};
         Characters.insert(std::pair<GLchar, Character>(c, character));
     }
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -143,10 +146,10 @@ int main()
     FT_Done_FreeType(ft);
 
     // Configure VAO/VBO for texture quads
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glGenVertexArrays(1, &textVAO);
+    glGenBuffers(1, &textVBO);
+    glBindVertexArray(textVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, textVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
@@ -168,13 +171,14 @@ int main()
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
+        // 得到
         string fpsINFO = "FPS:\t";
         shownTime += deltaTime;
         if ((shownTime - 0.3f) >= 0)
         {
 
             std::strstream ss;
-            ss << (int) (1 / deltaTime);
+            ss << (int)(1 / deltaTime);
             ss >> fpsNum;
             ss.clear();
             shownTime = 0;
@@ -199,14 +203,13 @@ int main()
     return 0;
 }
 
-
 void RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color)
 {
     // Activate corresponding render state
     shader.use();
     glUniform3f(glGetUniformLocation(shader.ID, "textColor"), color.x, color.y, color.z);
     glActiveTexture(GL_TEXTURE0);
-    glBindVertexArray(VAO);
+    glBindVertexArray(textVAO);
 
     // Iterate through all characters
     std::string::const_iterator c;
@@ -221,17 +224,17 @@ void RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GLfloat 
         GLfloat h = ch.Size.y * scale;
         // Update VBO for each character
         GLfloat vertices[6][4] = {
-                {xpos,     ypos + h, 0.0, 0.0},
-                {xpos,     ypos,     0.0, 1.0},
-                {xpos + w, ypos,     1.0, 1.0},
+            {xpos, ypos + h, 0.0, 0.0},
+            {xpos, ypos, 0.0, 1.0},
+            {xpos + w, ypos, 1.0, 1.0},
 
-                {xpos,     ypos + h, 0.0, 0.0},
-                {xpos + w, ypos,     1.0, 1.0},
-                {xpos + w, ypos + h, 1.0, 0.0}};
+            {xpos, ypos + h, 0.0, 0.0},
+            {xpos + w, ypos, 1.0, 1.0},
+            {xpos + w, ypos + h, 1.0, 0.0}};
         // Render glyph texture over quad
         glBindTexture(GL_TEXTURE_2D, ch.TextureID);
         // Update content of VBO memory
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBindBuffer(GL_ARRAY_BUFFER, textVBO);
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices),
                         vertices); // Be sure to use glBufferSubData and not glBufferData
 

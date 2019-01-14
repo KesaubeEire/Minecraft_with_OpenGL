@@ -15,7 +15,7 @@ public:
     unsigned int ID;
 
     // Shader的构造函数
-    // ------------------------------------------------------------------------
+    // --------------
     Shader(const char *vertexPath, const char *fragmentPath, const char *geometryPath = nullptr)
     {
         // 1. 利用 I/O -> 从Shader路径处构建Shader
@@ -110,7 +110,7 @@ public:
 
     // 激活Shader
     // activate the shader
-    // ------------------------------------------------------------------------
+    // -------------------
     void use()
     {
         glUseProgram(ID);
@@ -118,7 +118,7 @@ public:
 
     // 工具函数:常用于循环中每帧设定值
     // utility uniform functions
-    // ------------------------------------------------------------------------
+    // -------------------------
     void setBool(const std::string &name, bool value) const
     {
         glUniform1i(glGetUniformLocation(ID, name.c_str()), (int) value);
@@ -218,5 +218,5 @@ private:
         }
     }
 };
-
+// SHADER_H
 #endif
