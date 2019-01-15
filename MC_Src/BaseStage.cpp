@@ -11,7 +11,7 @@
 #include <map>
 #include <string>
 #include <iostream>
-#include <strstream>
+#include <sstream>
 
 // GL Headers
 #include <glad/glad.h>
@@ -19,6 +19,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+
+// #include <ft2build.h>
+// #include FT_FREETYPE_H
+// #include <freetype/freetype.h>
+// #include <freetype/ftglyph.h>
 
 // 回调操作:窗口 | 鼠标 | 滚轮 | 键盘
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
@@ -29,8 +34,8 @@ void processInput(GLFWwindow *window);
 unsigned int loadTexture(char const *path);
 
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_WIDTH = 1600;
+const unsigned int SCR_HEIGHT = 900;
 
 // camera
 Camera camera(glm::vec3(15, 30, 15));
@@ -46,8 +51,51 @@ string fpsNum;
 
 // cursor
 bool isCursorHidden;
+// log
+bool isLogShown = true;
+/////////////////////////////// Log String Worker
+
+struct LogString
+{
+    // 内容核心
+    string content;
+    // 临时变量
+    string tmp;
+    // stringstream
+    std::stringstream tmpStream;
+
+    // 求内容时用
+    string Str()
+    {
+        return content;
+    }
+
+    // // 加入
+    template <typename T>
+    void append(T word)
+    {
+        tmpStream << word;
+        tmpStream >> tmp;
+
+        content += tmp;
+
+        tmpStream.clear();
+        tmp.clear();
+    }
+    void addStr(string word = " ")
+    {
+        content += word;
+    }
+
+    void clear()
+    {
+        content.clear();
+    }
+};
+/////////////////////////////// Log String Worker
 
 /////////////////////////////// Texture Renderer
+
 /// Holds all state information relevant to
 /// a character as loaded using FreeType
 struct Character
@@ -63,7 +111,7 @@ GLuint textVAO, textVBO;
 
 void RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
 
-///////////////////////////////
+/////////////////////////////// Texture Renderer
 // texrenderer
 
 int main()
@@ -208,12 +256,12 @@ int main()
 
     // ✅Step4_生成文本
     // Compile and setup the shader
-    Shader shader(
-        "/Kesa/Dasan/ProgramWork/Cpp/OpenGL_LearningTest/CppPrimerLearning/CppPri/Shaders/text_vs.glsl",
-        "/Kesa/Dasan/ProgramWork/Cpp/OpenGL_LearningTest/CppPrimerLearning/CppPri/Shaders/text_fs.glsl");
+    Shader Fontshader(
+        "MC_Shaders/fontsShaders/text_vs.glsl",
+        "MC_Shaders/fontsShaders/text_fs.glsl");
     glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(SCR_WIDTH), 0.0f, static_cast<GLfloat>(SCR_HEIGHT));
-    shader.use();
-    glUniformMatrix4fv(glGetUniformLocation(shader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    Fontshader.use();
+    glUniformMatrix4fv(glGetUniformLocation(Fontshader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
     // FreeType
     FT_Library ft;
@@ -223,7 +271,7 @@ int main()
 
     // Load font as face
     FT_Face face;
-    if (FT_New_Face(ft, "/Kesa/Dasan/ProgramWork/Cpp/OpenGL_LearningTest/CppPrimerLearning/CppPri/Fonts/浪漫雅圆.ttf", 0,
+    if (FT_New_Face(ft, "MC_Resources/fonts/Monaco_Linux.ttf", 0,
                     &face))
         std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
 
@@ -292,6 +340,10 @@ int main()
     map_generate mapGenerate;
     auto map = mapGenerate.GenerateMap();
 
+    // log信息
+    LogString log_position;
+    LogString log_camfront;
+
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -313,12 +365,30 @@ int main()
                   << camera.Front.z << " "
                   << std::endl;
 
+        log_position.clear();
+        log_position.addStr("Camera.Position: x:");
+        log_position.append((int)camera.Position.x);
+        log_position.addStr(" y:");
+        log_position.append((int)camera.Position.y);
+        log_position.addStr(" z:");
+        log_position.append((int)camera.Position.z);
+        std::cout << log_position.content << std::endl;
+
+        log_camfront.clear();
+        log_camfront.addStr("Camera.Front: x:");
+        log_camfront.append(camera.Front.x);
+        log_camfront.addStr(" y:");
+        log_camfront.append(camera.Front.y);
+        log_camfront.addStr(" z:");
+        log_camfront.append(camera.Front.z);
+        std::cout << log_camfront.content << std::endl;
+
         // 得到
         string fpsINFO = "FPS:\t";
         ShownTime += deltaTime;
         if ((ShownTime - 0.3f) >= 0)
         {
-            std::strstream ss;
+            std::stringstream ss;
             ss << (int)(1 / deltaTime);
             ss >> fpsNum;
             ss.clear();
@@ -367,9 +437,9 @@ int main()
         glActiveTexture(GL_TEXTURE2);
         glBindTexture(GL_TEXTURE_2D, diffuseMap_bottom);
 
+        // todo:这里省略了逐帧调用 但是总有一天要搞回来的
         // render containers
         glBindVertexArray(cubeVAO);
-
         // 读取地图 - 绘制地形
         int Row = 0;
         for (auto row : map)
@@ -392,13 +462,20 @@ int main()
             Row++;
         }
 
-        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-        // -------------------------------------------------------------------------------
+        // glfw: swap buffers and poll IO events
+        // --------------------------------------
+        // (keys pressed/released, mouse moved etc.)
+        // -----------------------------------------
         glfwPollEvents();
 
         // Render Text
-        RenderText(shader, fpsINFO, 5.0f, 5.0f, 0.4f, glm::vec3(0.5, 0.8f, 0.2f));
-        RenderText(shader, "(C) LearnOpenGL.com", 540.0f, 570.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
+        if (isLogShown)
+        {
+            RenderText(Fontshader, "MineCraft_OpenGL", 0, SCR_HEIGHT - 15, 0.3f, glm::vec3(0.3, 0.7f, 0.9f));
+            RenderText(Fontshader, fpsINFO, 0, SCR_HEIGHT - 30, 0.3f, glm::vec3(0.5, 0.8f, 0.2f));
+            RenderText(Fontshader, log_position.content, 0, SCR_HEIGHT - 45, 0.3f, glm::vec3(0.5, 0.3f, 0.2f));
+            RenderText(Fontshader, log_camfront.content, 0, SCR_HEIGHT - 60, 0.3f, glm::vec3(0.5, 0.3f, 0.2f));
+        }
 
         glfwSwapBuffers(window);
     }
@@ -422,6 +499,9 @@ int main()
 // -------------------------------------
 // relevant keys are pressed/released this frame and react accordingly
 // --------------------------------------------------------------------
+// 按键控制:wasd前后左右 qe上下 left_shift加速(only 4 wasd) v玄学显示鼠标 back显示Log
+bool isVpressed = false;
+bool isBSpressed = false;
 void processInput(GLFWwindow *window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -447,8 +527,19 @@ void processInput(GLFWwindow *window)
         camera.ChangeSpeed();
     }
 
+    if (glfwGetKey(window, GLFW_KEY_BACKSPACE) == GLFW_PRESS && isBSpressed == false)
+    {
+        isLogShown = !isLogShown;
+        isBSpressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_BACKSPACE) == GLFW_RELEASE && isBSpressed == true)
+    {
+        isBSpressed = false;
+    }
+
     // 玄学控制 => 没办法实现单词点击实现
-    if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS)
+
+    if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS && isVpressed == false)
     {
         std::cout << "Hi" << std::endl;
         if (isCursorHidden)
@@ -461,6 +552,11 @@ void processInput(GLFWwindow *window)
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
             isCursorHidden = true;
         }
+        isVpressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_V) == GLFW_RELEASE && isVpressed == true)
+    {
+        isVpressed = false;
     }
 }
 
@@ -475,6 +571,7 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 
 // glfw: whenever the mouse moves, this callback is called
 // -------------------------------------------------------
+// 鼠标移动视角
 void mouse_callback(GLFWwindow *window, double xpos, double ypos)
 {
     if (firstMouse)
@@ -545,7 +642,8 @@ unsigned int loadTexture(char const *path)
     return textureID;
 }
 
-void RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color)
+// 渲染文字
+void RenderText(Shader &shader, const std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color)
 {
     // Activate corresponding render state
     shader.use();

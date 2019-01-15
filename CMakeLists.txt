@@ -30,7 +30,6 @@ file(COPY MC_Shaders DESTINATION ${dir}/build)
 #Add deps
 add_subdirectory(dependencies)
 
-
 #Add Exe
 # add_executable(L_0_6 OldRef/L_0_6_BeforeTransform.cpp  ${HEADER_FILES})
 # target_link_libraries(L_0_6 glfw)

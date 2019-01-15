@@ -7,7 +7,6 @@
 
 #include <iostream>
 #include <string>
-//#include <vector>
 #include <math.h>
 #include <fstream>
 #include <iomanip>
@@ -22,7 +21,7 @@ class map_generate
     //    const string dir_config = "MC_Config/map.txt";
 
     // 输出二维大小
-    const int regionX = 40;
+    const int regionX = 80;
     const int regionY = 40;
 
     // 随机种子
@@ -125,7 +124,7 @@ class map_generate
     }
 
   public:
-    vector<vector<int>> GenerateMap()
+    vector<vector<int> > GenerateMap()
     {
         // todo:Clion时放开注释
         // 读写文件流

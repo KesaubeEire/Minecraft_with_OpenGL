@@ -25,7 +25,7 @@ class map_generate
     //    const string dir_config = "MC_Config/map.txt";
 
     // 输出二维大小
-    const int regionX = 40;
+    const int regionX = 80;
     const int regionY = 40;
 
     // 随机种子
@@ -130,8 +130,9 @@ class map_generate
   public:
     vector<vector<int>> GenerateMap()
     {
+        // todo:Clion时放开注释
         // 读写文件流
-        ofstream mapFile(dir_config);
+        // ofstream mapFile(dir_config);
         // if (!mapFile)
         // {
         //     // throw runtime_error("Map file Open Error!");
@@ -145,7 +146,7 @@ class map_generate
         unsigned block_num = 0;
 
         // 搞出来vector存储地形数据
-        vector<vector<int>> map;
+        vector<vector<int> > map;
         for (float i = 0; i < regionX; ++i)
         {
             vector<int> height_row;
@@ -166,14 +167,16 @@ class map_generate
                 block_num += height;
 
                 //写文件
-                mapFile << height << "\t";
+                // todo:Clion时放开注释
+                // mapFile << height << "\t";
             }
             map.push_back(height_row);
             //            std::cout << std::endl;
 
             //写文件
-            mapFile << "\n"
-                    << endl;
+            // todo:Clion时放开注释
+            // mapFile << "\n"
+            //         << endl;
         }
         cout << "地图生成block:\t" << block_num << endl;
 
