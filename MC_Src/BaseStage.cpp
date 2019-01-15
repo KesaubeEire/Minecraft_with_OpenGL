@@ -354,16 +354,16 @@ int main()
         float currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
-        std::cout << "FPS: " << (int)(1 / deltaTime) << "\t\t"
-                  << "Position: "
-                  << (int)camera.Position.x << " "
-                  << (int)camera.Position.y << " "
-                  << (int)camera.Position.z << "\t"
-                  << "Camera.Front: "
-                  << camera.Front.x << " "
-                  << camera.Front.y << " "
-                  << camera.Front.z << " "
-                  << std::endl;
+        // std::cout << "FPS: " << (int)(1 / deltaTime) << "\t\t"
+        //           << "Position: "
+        //           << (int)camera.Position.x << " "
+        //           << (int)camera.Position.y << " "
+        //           << (int)camera.Position.z << "\t"
+        //           << "Camera.Front: "
+        //           << camera.Front.x << " "
+        //           << camera.Front.y << " "
+        //           << camera.Front.z << " "
+        //           << std::endl;
 
         log_position.clear();
         log_position.addStr("Camera.Position: x:");
@@ -473,8 +473,8 @@ int main()
         {
             RenderText(Fontshader, "MineCraft_OpenGL", 0, SCR_HEIGHT - 15, 0.3f, glm::vec3(0.3, 0.7f, 0.9f));
             RenderText(Fontshader, fpsINFO, 0, SCR_HEIGHT - 30, 0.3f, glm::vec3(0.5, 0.8f, 0.2f));
-            RenderText(Fontshader, log_position.content, 0, SCR_HEIGHT - 45, 0.3f, glm::vec3(0.5, 0.3f, 0.2f));
-            RenderText(Fontshader, log_camfront.content, 0, SCR_HEIGHT - 60, 0.3f, glm::vec3(0.5, 0.3f, 0.2f));
+            RenderText(Fontshader, log_position.content, 0, SCR_HEIGHT - 45, 0.3f, glm::vec3(0, 0.8f, 0.8f));
+            RenderText(Fontshader, log_camfront.content, 0, SCR_HEIGHT - 60, 0.3f, glm::vec3(0, 0.8f, 0.8f));
         }
 
         glfwSwapBuffers(window);
@@ -627,7 +627,7 @@ unsigned int loadTexture(char const *path)
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
         stbi_image_free(data);
