@@ -34,11 +34,11 @@ void processInput(GLFWwindow *window);
 unsigned int loadTexture(char const *path);
 
 // settings
-const unsigned int SCR_WIDTH = 1600;
-const unsigned int SCR_HEIGHT = 900;
+const unsigned int SCR_WIDTH = 800;
+const unsigned int SCR_HEIGHT = 600;
 
 // camera
-Camera camera(glm::vec3(15, 30, 15));
+Camera camera(glm::vec3(15, 30, 15), glm::vec3(0.0f, 1.0f, 0.0f), -90, -90);
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -53,8 +53,7 @@ string fpsNum;
 bool isCursorHidden;
 // log
 bool isLogShown = true;
-/////////////////////////////// Log String Worker
-
+/////////////////////////////// --1--Log String Worker
 struct LogString
 {
     // 内容核心
@@ -92,9 +91,9 @@ struct LogString
         content.clear();
     }
 };
-/////////////////////////////// Log String Worker
+/////////////////////////////// --1--Log String Worker
 
-/////////////////////////////// Texture Renderer
+/////////////////////////////// --2--Texture Renderer
 
 /// Holds all state information relevant to
 /// a character as loaded using FreeType
@@ -111,8 +110,33 @@ GLuint textVAO, textVBO;
 
 void RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
 
-/////////////////////////////// Texture Renderer
-// texrenderer
+/////////////////////////////// --2--Texture Renderer
+
+/////////////////////////////// --3--Block Renderer
+struct BlockRenderer
+{
+    unsigned int Texture_top;
+    unsigned int Texture_side;
+    unsigned int Texture_bot;
+
+    BlockRenderer(string topStr, string sideStr, string botStr)
+    {
+        Texture_top = loadTexture(FileSystem::getPath(topStr).c_str());
+        Texture_side = loadTexture(FileSystem::getPath(sideStr).c_str());
+        Texture_bot = loadTexture(FileSystem::getPath(botStr).c_str());
+    }
+
+    void Render()
+    {
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, Texture_top);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, Texture_side);
+        glActiveTexture(GL_TEXTURE2);
+        glBindTexture(GL_TEXTURE_2D, Texture_bot);
+    }
+};
+/////////////////////////////// --3--Block Renderer
 
 int main()
 {
@@ -242,9 +266,23 @@ int main()
     Shader Shader_Block_Grass("MC_Shaders/vs_block001.glsl", "MC_Shaders/fs_block001.glsl");
 
     // ----------- diffuseMap ----------- //
-    unsigned int diffuseMap_top = loadTexture(FileSystem::getPath("MC_Resources/Textures/grass_block_top.png").c_str());
-    unsigned int diffuseMap_side = loadTexture(FileSystem::getPath("MC_Resources/Textures/grass_block_side.png").c_str());
-    unsigned int diffuseMap_bottom = loadTexture(FileSystem::getPath("MC_Resources/Textures/coarse_dirt.png").c_str());
+
+    // unsigned int diffuseMap_top = loadTexture(FileSystem::getPath("MC_Resources/Textures/grass_block_top.png").c_str());
+    // unsigned int diffuseMap_side = loadTexture(FileSystem::getPath("MC_Resources/Textures/grass_block_side.png").c_str());
+    // unsigned int diffuseMap_bottom = loadTexture(FileSystem::getPath("MC_Resources/Textures/coarse_dirt.png").c_str());
+
+    BlockRenderer block_GrassSoil(
+        "MC_Resources/Textures/grass_block_top.png",
+        "MC_Resources/Textures/grass_block_side.png",
+        "MC_Resources/Textures/coarse_dirt.png");
+    BlockRenderer block_Soli(
+        "MC_Resources/Textures/coarse_dirt.png",
+        "MC_Resources/Textures/coarse_dirt.png",
+        "MC_Resources/Textures/coarse_dirt.png");
+    BlockRenderer block_Stone(
+        "MC_Resources/Textures/stone.png",
+        "MC_Resources/Textures/stone.png",
+        "MC_Resources/Textures/stone.png");
     // ----------- diffuseMap ----------- //
 
     // shader configuration
@@ -429,13 +467,14 @@ int main()
         glm::mat4 model;
         Shader_Block_Grass.setMat4("model", model);
 
+        // 渲染贴图:草皮贴图
         // bind diffuse map
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, diffuseMap_top);
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, diffuseMap_side);
-        glActiveTexture(GL_TEXTURE2);
-        glBindTexture(GL_TEXTURE_2D, diffuseMap_bottom);
+        // glActiveTexture(GL_TEXTURE0);
+        // glBindTexture(GL_TEXTURE_2D, diffuseMap_top);
+        // glActiveTexture(GL_TEXTURE1);
+        // glBindTexture(GL_TEXTURE_2D, diffuseMap_side);
+        // glActiveTexture(GL_TEXTURE2);
+        // glBindTexture(GL_TEXTURE_2D, diffuseMap_bottom);
 
         // todo:这里省略了逐帧调用 但是总有一天要搞回来的
         // render containers
@@ -447,10 +486,26 @@ int main()
             int Col = 0;
             for (auto point : row)
             {
-                for (int i = 0; i < point; ++i)
+                for (int i = 0; i <= point; i++)
                 {
+                    if (i == point)
+                    {
+                        // 渲染贴图:草皮贴图
+                        block_GrassSoil.Render();
+                    }
+                    else if (i < point - 4)
+                    {
+                        block_Stone.Render();
+                    }
+                    else
+                    {
+                        // 渲染贴图:土块贴图
+                        block_Soli.Render();
+                    }
+
                     glm::vec3 cubePositions = glm::vec3(Row, i, Col);
-                    // calculate the model matrix for each object and pass it to shader before drawing
+                    // calculate the model matrix for each object
+                    // and pass it to shader before drawing
                     glm::mat4 model;
                     model = glm::translate(model, cubePositions);
                     Shader_Block_Grass.setMat4("model", model);

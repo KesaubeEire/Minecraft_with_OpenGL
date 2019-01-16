@@ -35,14 +35,13 @@ float SPEED = 2.5f;
 const float SENSITIVITY = 0.1f;
 const float ZOOM = 90.0f;
 
-
 // An abstract camera class that processes input and
 // calculates the corresponding Euler Angles, Vectors and Matrices
 // for use in OpenGL
 // 总之是欧拉角的Camera类
 class Camera
 {
-public:
+  public:
     // Camera Attributes
     // 简单属性 位置|local前 local上 local右|世界上
     glm::vec3 Position;
@@ -62,7 +61,6 @@ public:
     float MouseSensitivity;
     float Zoom;
 
-
     // Constructor with vectors
     // 矢量构造器
     Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
@@ -76,11 +74,11 @@ public:
         updateCameraVectors();
     }
 
-
     // Constructor with scalar values
     // 标量构造器
     Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : Front(
-            glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
+                                                                                                              glm::vec3(0.0f, 0.0f, -1.0f)),
+                                                                                                          MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
     {
         Position = glm::vec3(posX, posY, posZ);
         WorldUp = glm::vec3(upX, upY, upZ);
@@ -89,14 +87,12 @@ public:
         updateCameraVectors();
     }
 
-
     // Returns the view matrix calculated using Euler Angles and the LookAt Matrix
     // 朝向
     glm::mat4 GetViewMatrix()
     {
         return glm::lookAt(Position, Position + Front, Up);
     }
-
 
     // Processes input received from any keyboard-like input system.
     // Accepts input parameter in the form of camera defined ENUM
@@ -129,7 +125,6 @@ public:
         }
     }
 
-
     // Processes input received from a mouse input system.
     // Expects the offset value in both the x and y direction.
     // 鼠标操作
@@ -154,7 +149,6 @@ public:
         updateCameraVectors();
     }
 
-
     // Processes input received from a mouse scroll-wheel event.
     // Only requires input on the vertical wheel-axis
     // 滚轮操作
@@ -168,14 +162,12 @@ public:
             Zoom = 45.0f;
     }
 
-
     void ChangeSpeed(float targetSpeed = SPEED)
     {
         MovementSpeed = targetSpeed;
     }
 
-
-private:
+  private:
     // Calculates the front vector from the Camera's (updated) Euler Angles
     // 私有:更新各个变量
     void updateCameraVectors()
@@ -189,7 +181,7 @@ private:
 
         // Also re-calculate the Right and Up vector
         Right = glm::normalize(glm::cross(Front,
-                                          WorldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+                                          WorldUp)); // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
         Up = glm::normalize(glm::cross(Right, Front));
     }
 };
