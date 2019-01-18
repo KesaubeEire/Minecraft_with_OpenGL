@@ -15,7 +15,7 @@ struct DirLight {
     vec3 direction;
 
 	// 冯氏
-    vec3 ambient;
+    vec3 ambient; 
     vec3 diffuse;
     vec3 specular;
 };
@@ -75,11 +75,11 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 
 void main()
 {
-    // 利用发现的方向,搞一搞各个侧边的不同贴图
-    vec3 side = vec3(texture(material.diffuse_s, TexCoords))*length(cross(Normal,vec3(0,1,0)));
-    vec3 top  = vec3(texture(material.diffuse_t, TexCoords))*max(dot(Normal,vec3(0,1,0)),0);
-    vec3 bot  = vec3(texture(material.diffuse_b, TexCoords))*max(dot(Normal,vec3(0,-1,0)),0);
-    FragColor = vec4(side+top+bot,1.0);
+    // 利用法线的方向,搞一搞各个侧边的不同贴图
+    vec3 top  = vec3(texture(material.diffuse_t, TexCoords))*max( dot (Normal,vec3(0,1,0)),0 );
+    vec3 side = vec3(texture(material.diffuse_s, TexCoords))*length ( cross(Normal,vec3(0,1,0)) );
+    vec3 bot  = vec3(texture(material.diffuse_b, TexCoords))*max ( dot(Normal,vec3(0,-1,0)),0 );
+    FragColor = vec4(side + top + bot,1.0);
 }
 
 // 下面先藏一下正式光照的部分

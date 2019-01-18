@@ -33,7 +33,8 @@ const float YAW = -90.0f;
 const float PITCH = 0.0f;
 float SPEED = 2.5f;
 const float SENSITIVITY = 0.1f;
-const float ZOOM = 90.0f;
+const float ZOOM_MIN = 1.0f;
+const float ZOOM_MAX = 110.0f;
 
 // An abstract camera class that processes input and
 // calculates the corresponding Euler Angles, Vectors and Matrices
@@ -65,7 +66,7 @@ class Camera
     // 矢量构造器
     Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
            float yaw = YAW, float pitch = PITCH) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED),
-                                                   MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
+                                                   MouseSensitivity(SENSITIVITY), Zoom(ZOOM_MAX)
     {
         Position = position;
         WorldUp = up;
@@ -76,9 +77,7 @@ class Camera
 
     // Constructor with scalar values
     // 标量构造器
-    Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : Front(
-                                                                                                              glm::vec3(0.0f, 0.0f, -1.0f)),
-                                                                                                          MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
+    Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM_MAX)
     {
         Position = glm::vec3(posX, posY, posZ);
         WorldUp = glm::vec3(upX, upY, upZ);
@@ -137,6 +136,7 @@ class Camera
         Pitch += yoffset;
 
         // Make sure that when pitch is out of bounds, screen doesn't get flipped
+        // 保证不超越旋转边界 - 不会导致万向节死锁
         if (constrainPitch)
         {
             if (Pitch > 89.0f)
@@ -154,12 +154,12 @@ class Camera
     // 滚轮操作
     void ProcessMouseScroll(float yoffset)
     {
-        if (Zoom >= 1.0f && Zoom <= 45.0f)
+        if (Zoom >= ZOOM_MIN && Zoom <= ZOOM_MAX)
             Zoom -= yoffset;
-        if (Zoom <= 1.0f)
-            Zoom = 1.0f;
-        if (Zoom >= 45.0f)
-            Zoom = 45.0f;
+        if (Zoom <= ZOOM_MIN)
+            Zoom = ZOOM_MIN;
+        if (Zoom >= ZOOM_MAX)
+            Zoom = ZOOM_MAX;
     }
 
     void ChangeSpeed(float targetSpeed = SPEED)

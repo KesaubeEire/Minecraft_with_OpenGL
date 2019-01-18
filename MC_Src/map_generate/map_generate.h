@@ -21,8 +21,8 @@ class map_generate
     //    const string dir_config = "MC_Config/map.txt";
 
     // 输出二维大小
-    const int regionX = 40;
-    const int regionY = 40;
+    const int regionX = 60;
+    const int regionY = 60;
 
     // 随机种子
     // 如果有指定种子就用指定种子

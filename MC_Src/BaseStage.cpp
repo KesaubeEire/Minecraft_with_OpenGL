@@ -140,8 +140,9 @@ struct BlockRenderer
 
 int main()
 {
-    //region Step1_初始化窗口
+
     // Step1_初始化窗口
+#pragma region
     // ------------------------------
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -178,16 +179,24 @@ int main()
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
+#pragma endregion
 
-    // configure global opengl state
+    // Step1.5_全局配置
     // -----------------------------
+    // 启用深度测试。根据坐标的远近自动隐藏被遮住的图形（材料）
     glEnable(GL_DEPTH_TEST);
+
+    // 启用颜色混合。例如实现半透明效果
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    //endregion
+    // 根据函数glCullFace要求启用隐藏图形材料的面。
+    // 启用剔除 | 剔除向后的面 | 顺时针剔除
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    // glFrontFace(GL_CCW);
 
-    // ✅Step2_生成基础小块
+    // Step2_生成基础小块
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // 单位Block的内部Hierarchy生成
     // ------------------------------------------------------------------
@@ -211,10 +220,10 @@ int main()
 
         // 左
         -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,   //左上
+        -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, //右下
         -0.5f, 0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,  //右上
-        -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, //右下
-        -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, //右下
         -0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,  //左下
+        -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, //右下
         -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,   //左上
 
         // 右
@@ -222,8 +231,8 @@ int main()
         0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,  //左上
         0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, //左下
         0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, //左下
-        0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,  //右下
         0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,   //右上
+        0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,  //右下
 
         // 下
         -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
@@ -234,11 +243,11 @@ int main()
         -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
 
         // 上
-        -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
         0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-        0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+        -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
         0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
         -0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+        0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
         -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f};
 
     //Texure的流程:
@@ -249,7 +258,6 @@ int main()
 
     glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
     glBindVertexArray(cubeVAO);
 
     // position attribute
@@ -260,7 +268,7 @@ int main()
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
-    // ✅Step3_生成基本Shader
+    // Step3_生成基本Shader
     // build and compile our shader zprogram
     // ------------------------------------
     Shader Shader_Block_Grass("MC_Shaders/vs_block001.glsl", "MC_Shaders/fs_block001.glsl");
@@ -292,14 +300,38 @@ int main()
     Shader_Block_Grass.setInt("material.diffuse_s", 1);
     Shader_Block_Grass.setInt("material.diffuse_b", 2);
 
-    // ✅Step4_生成文本
+    // Step3.5_生成debug方向
+    float debug_line_vertices[] = {
+        // pos   // color
+        1, 0, 0, 1, 0, 0,
+        0, 0, 0, 1, 0, 0,
+        0, 1, 0, 0, 1, 0,
+        0, 0, 0, 0, 1, 0,
+        0, 0, 1, 0, 0, 1,
+        0, 0, 0, 0, 0, 1};
+
+    unsigned int debug_line_VBO, dubug_line_VAO;
+    glGenVertexArrays(1, &dubug_line_VAO);
+    glGenBuffers(1, &debug_line_VBO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, debug_line_VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(debug_line_vertices), debug_line_vertices, GL_STATIC_DRAW);
+    glBindVertexArray(dubug_line_VAO);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
+    glEnableVertexAttribArray(1);
+
+    Shader Shader_debug_line("MC_Shaders/vs_debugline.glsl", "MC_Shaders/fs_debugline.glsl");
+
+    // Step4_生成文本
+#pragma region 生成文本
     // Compile and setup the shader
-    Shader Fontshader(
-        "MC_Shaders/fontsShaders/text_vs.glsl",
-        "MC_Shaders/fontsShaders/text_fs.glsl");
+    Shader Shader_Font("MC_Shaders/fontsShaders/text_vs.glsl", "MC_Shaders/fontsShaders/text_fs.glsl");
     glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(SCR_WIDTH), 0.0f, static_cast<GLfloat>(SCR_HEIGHT));
-    Fontshader.use();
-    glUniformMatrix4fv(glGetUniformLocation(Fontshader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    Shader_Font.use();
+    glUniformMatrix4fv(glGetUniformLocation(Shader_Font.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
     // FreeType
     FT_Library ft;
@@ -309,8 +341,7 @@ int main()
 
     // Load font as face
     FT_Face face;
-    if (FT_New_Face(ft, "MC_Resources/fonts/Monaco_Linux.ttf", 0,
-                    &face))
+    if (FT_New_Face(ft, "MC_Resources/fonts/Monaco_Linux.ttf", 0, &face))
         std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
 
     // Set size to load glyphs as
@@ -320,6 +351,7 @@ int main()
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
     // Load first 128 characters of ASCII set
+    // 加载ASCII码 - 没有汉字呢还
     for (GLubyte c = 0; c < 128; c++)
     {
         // Load character glyph
@@ -370,8 +402,9 @@ int main()
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+#pragma endregion
 
-    // ✅Step5_排列方块位置
+    // Step5_排列方块位置
     // 管理Block位置数组
 
     // 读取地图信息
@@ -386,7 +419,8 @@ int main()
     // -----------
     while (!glfwWindowShouldClose(window))
     {
-
+#pragma region Log - 信息
+        // region
         // 显示帧数
         // --------------------
         float currentFrame = glfwGetTime();
@@ -420,6 +454,8 @@ int main()
         log_camfront.addStr(" z:");
         log_camfront.append(camera.Front.z);
         std::cout << log_camfront.content << std::endl;
+// endregion
+#pragma endregion
 
         // 得到
         string fpsINFO = "FPS:\t";
@@ -437,11 +473,14 @@ int main()
 
         // input
         // -----
+        // 键盘输入
         processInput(window);
 
         // render
         // ------
+        // 底色
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        // TODO: GL基础配置 : 搞懂意义
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // be sure to activate shader when setting uniforms/drawing objects
@@ -523,13 +562,20 @@ int main()
         // -----------------------------------------
         glfwPollEvents();
 
+        float text_interval = 12.5f;
+
         // Render Text
         if (isLogShown)
         {
-            RenderText(Fontshader, "MineCraft_OpenGL", 0, SCR_HEIGHT - 15, 0.3f, glm::vec3(0.3, 0.7f, 0.9f));
-            RenderText(Fontshader, fpsINFO, 0, SCR_HEIGHT - 30, 0.3f, glm::vec3(0.5, 0.8f, 0.2f));
-            RenderText(Fontshader, log_position.content, 0, SCR_HEIGHT - 45, 0.3f, glm::vec3(0, 0.8f, 0.8f));
-            RenderText(Fontshader, log_camfront.content, 0, SCR_HEIGHT - 60, 0.3f, glm::vec3(0, 0.8f, 0.8f));
+            // RenderText(Shader_Font, "MineCraft_OpenGL", 0, SCR_HEIGHT - 15, 0.3f, glm::vec3(0.3, 0.7f, 0.9f));
+            // RenderText(Shader_Font, fpsINFO, 0, SCR_HEIGHT - 30, 0.3f, glm::vec3(0.5, 0.8f, 0.2f));
+            // RenderText(Shader_Font, log_position.content, 0, SCR_HEIGHT - 45, 0.3f, glm::vec3(0, 0.8f, 0.8f));
+            // RenderText(Shader_Font, log_camfront.content, 0, SCR_HEIGHT - 60, 0.3f, glm::vec3(0, 0.8f, 0.8f));
+
+            RenderText(Shader_Font, "MineCraft_OpenGL", 0, SCR_HEIGHT - text_interval, text_interval / 50, glm::vec3(0.3, 0.7f, 0.9f));
+            RenderText(Shader_Font, fpsINFO, 0, SCR_HEIGHT - text_interval * 2, text_interval / 50, glm::vec3(0.5, 0.8f, 0.2f));
+            RenderText(Shader_Font, log_position.content, 0, SCR_HEIGHT - text_interval * 3, text_interval / 50, glm::vec3(0, 0.8f, 0.8f));
+            RenderText(Shader_Font, log_camfront.content, 0, SCR_HEIGHT - text_interval * 4, text_interval / 50, glm::vec3(0, 0.8f, 0.8f));
         }
 
         glfwSwapBuffers(window);
@@ -549,6 +595,7 @@ int main()
 
     return 0;
 }
+#pragma region 回调函数
 
 // process all input: query GLFW whether
 // -------------------------------------
@@ -651,9 +698,11 @@ void scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
 {
     camera.ProcessMouseScroll((float)yoffset);
 }
+#pragma endregion
 
 // utility function for loading a 2D texture from file
 // ---------------------------------------------------
+// 导入材质
 unsigned int loadTexture(char const *path)
 {
     unsigned int textureID;
@@ -682,7 +731,13 @@ unsigned int loadTexture(char const *path)
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+
+        // 风格1:远处使用线性采样 - 减少摩尔纹
+        // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+        // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+        // 风格2:真实mc:全邻近
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
         stbi_image_free(data);
