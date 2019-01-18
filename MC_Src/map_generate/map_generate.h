@@ -21,8 +21,8 @@ class map_generate
     //    const string dir_config = "MC_Config/map.txt";
 
     // 输出二维大小
-    const int regionX = 60;
-    const int regionY = 60;
+    const int regionX = 30;
+    const int regionY = 30;
 
     // 随机种子
     // 如果有指定种子就用指定种子
@@ -124,7 +124,7 @@ class map_generate
     }
 
   public:
-    vector<vector<int> > GenerateMap()
+    vector<vector<int>> GenerateMap()
     {
         // todo:Clion时放开注释
         // 读写文件流
@@ -142,7 +142,7 @@ class map_generate
         unsigned block_num = 0;
 
         // 搞出来vector存储地形数据
-        vector<vector<int> > map;
+        vector<vector<int>> map;
         for (float i = 0; i < regionX; ++i)
         {
             vector<int> height_row;

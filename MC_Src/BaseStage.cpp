@@ -34,8 +34,8 @@ void processInput(GLFWwindow *window);
 unsigned int loadTexture(char const *path);
 
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_WIDTH = 1800;
+const unsigned int SCR_HEIGHT = 1200;
 
 // camera
 Camera camera(glm::vec3(15, 30, 15), glm::vec3(0.0f, 1.0f, 0.0f), -90, -90);
@@ -191,10 +191,10 @@ int main()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // 根据函数glCullFace要求启用隐藏图形材料的面。
-    // 启用剔除 | 剔除向后的面 | 顺时针剔除
+    // 启用剔除 | 剔除向后的面 | 顺时针剔除(逆时针为正面)
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
-    // glFrontFace(GL_CCW);
+    glFrontFace(GL_CCW);
 
     // Step2_生成基础小块
     // set up vertex data (and buffer(s)) and configure vertex attributes
@@ -203,12 +203,12 @@ int main()
     float vertices[] = {
         // positions          // normals           // texture coords
         // 前
-        -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, //左下
         0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,  //右下
-        0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,   //右上
-        0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,   //右上
-        -0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,  //左上
         -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, //左下
+        0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,   //右上
+        0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,   //右上
+        -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, //左下
+        -0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,  //左上
 
         // 后
         -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
@@ -219,20 +219,20 @@ int main()
         -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
 
         // 左
+        -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, //右下
         -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,   //左上
-        -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, //右下
         -0.5f, 0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,  //右上
-        -0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,  //左下
         -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, //右下
+        -0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,  //左下
         -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,   //左上
 
         // 右
         0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,   //右上
+        0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, //左下
         0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,  //左上
-        0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, //左下
-        0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, //左下
         0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,   //右上
         0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,  //右下
+        0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, //左下
 
         // 下
         -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
@@ -300,30 +300,36 @@ int main()
     Shader_Block_Grass.setInt("material.diffuse_s", 1);
     Shader_Block_Grass.setInt("material.diffuse_b", 2);
 
-    // Step3.5_生成debug方向
-    float debug_line_vertices[] = {
-        // pos   // color
-        1, 0, 0, 1, 0, 0,
-        0, 0, 0, 1, 0, 0,
-        0, 1, 0, 0, 1, 0,
-        0, 0, 0, 0, 1, 0,
-        0, 0, 1, 0, 0, 1,
-        0, 0, 0, 0, 0, 1};
+    //TODO:暂时放弃MC_debug_line
+    #pragma region
+    // // Step3.5_生成debug方向
+    // float debug_line_vertices[] = {
+    //     // pos   // color
+    //     0.8, 0, 0, 1, 0, 0,
+    //     1.0, 0, 0, 1, 0, 0,
+    //     0, 0, 0, 1, 0, 0,
+    //     0, 0.8, 0, 0, 1, 0,
+    //     0, 1.0, 0, 0, 1, 0,
+    //     0, 0, 0, 0, 1, 0,
+    //     0, 0, 0.8, 0, 0, 1,
+    //     0, 0, 1, 0, 0, 1,
+    //     0, 0, 0, 0, 0, 1};
 
-    unsigned int debug_line_VBO, dubug_line_VAO;
-    glGenVertexArrays(1, &dubug_line_VAO);
-    glGenBuffers(1, &debug_line_VBO);
+    // unsigned int debug_line_VBO, dubug_line_VAO;
+    // glGenVertexArrays(1, &dubug_line_VAO);
+    // glGenBuffers(1, &debug_line_VBO);
 
-    glBindBuffer(GL_ARRAY_BUFFER, debug_line_VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(debug_line_vertices), debug_line_vertices, GL_STATIC_DRAW);
-    glBindVertexArray(dubug_line_VAO);
+    // glBindBuffer(GL_ARRAY_BUFFER, debug_line_VBO);
+    // glBufferData(GL_ARRAY_BUFFER, sizeof(debug_line_vertices), debug_line_vertices, GL_STATIC_DRAW);
+    // glBindVertexArray(dubug_line_VAO);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
-    glEnableVertexAttribArray(1);
+    // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
+    // glEnableVertexAttribArray(0);
+    // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
+    // glEnableVertexAttribArray(1);
 
-    Shader Shader_debug_line("MC_Shaders/vs_debugline.glsl", "MC_Shaders/fs_debugline.glsl");
+    // Shader Shader_debug_line("MC_Shaders/vs_debugline.glsl", "MC_Shaders/fs_debugline.glsl");
+    #pragma endregion
 
     // Step4_生成文本
 #pragma region 生成文本
@@ -483,6 +489,7 @@ int main()
         // TODO: GL基础配置 : 搞懂意义
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        // Shader赋值:草地
         // be sure to activate shader when setting uniforms/drawing objects
         Shader_Block_Grass.use();
         Shader_Block_Grass.setVec3("viewPos", camera.Position);
@@ -585,9 +592,12 @@ int main()
     // ------------------------------------------------------------------------
 
     glDeleteVertexArrays(1, &textVAO);
-    glDeleteVertexArrays(1, &cubeVAO);
     glDeleteBuffers(1, &textVBO);
+    glDeleteVertexArrays(1, &cubeVAO);
     glDeleteBuffers(1, &cubeVBO);
+
+    // glDeleteVertexArrays(1, &dubug_line_VAO);
+    // glDeleteBuffers(1, &debug_line_VBO);
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
@@ -643,7 +653,6 @@ void processInput(GLFWwindow *window)
 
     if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS && isVpressed == false)
     {
-        std::cout << "Hi" << std::endl;
         if (isCursorHidden)
         {
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
