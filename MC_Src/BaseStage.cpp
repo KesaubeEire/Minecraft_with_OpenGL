@@ -4,7 +4,6 @@
 #include "../dependencies/selfmade/stb_image.h"
 #include "../dependencies/selfmade/Camera.h"
 #include "../dependencies/selfmade/filesystem.h"
-#include "../dependencies/freetype/freetype.h"
 #include "map_generate/map_generate.h"
 
 // Standard Headers
@@ -20,10 +19,13 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#pragma region 字体渲染
 // #include <ft2build.h>
 // #include FT_FREETYPE_H
-// #include <freetype/freetype.h>
 // #include <freetype/ftglyph.h>
+// #include <freetype/freetype.h>
+#include "../dependencies/freetype/freetype.h"
+#pragma endregion
 
 // 回调操作:窗口 | 鼠标 | 滚轮 | 键盘
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
@@ -34,8 +36,8 @@ void processInput(GLFWwindow *window);
 unsigned int loadTexture(char const *path);
 
 // settings
-const unsigned int SCR_WIDTH = 1800;
-const unsigned int SCR_HEIGHT = 1200;
+const unsigned int SCR_WIDTH = 1280;
+const unsigned int SCR_HEIGHT = 720;
 
 // camera
 Camera camera(glm::vec3(15, 30, 15), glm::vec3(0.0f, 1.0f, 0.0f), -90, -90);
@@ -300,36 +302,36 @@ int main()
     Shader_Block_Grass.setInt("material.diffuse_s", 1);
     Shader_Block_Grass.setInt("material.diffuse_b", 2);
 
-    //TODO:暂时放弃MC_debug_line
-    #pragma region
-    // // Step3.5_生成debug方向
-    // float debug_line_vertices[] = {
-    //     // pos   // color
-    //     0.8, 0, 0, 1, 0, 0,
-    //     1.0, 0, 0, 1, 0, 0,
-    //     0, 0, 0, 1, 0, 0,
-    //     0, 0.8, 0, 0, 1, 0,
-    //     0, 1.0, 0, 0, 1, 0,
-    //     0, 0, 0, 0, 1, 0,
-    //     0, 0, 0.8, 0, 0, 1,
-    //     0, 0, 1, 0, 0, 1,
-    //     0, 0, 0, 0, 0, 1};
+//TODO:暂时放弃MC_debug_line
+#pragma region
+// // Step3.5_生成debug方向
+// float debug_line_vertices[] = {
+//     // pos   // color
+//     0.8, 0, 0, 1, 0, 0,
+//     1.0, 0, 0, 1, 0, 0,
+//     0, 0, 0, 1, 0, 0,
+//     0, 0.8, 0, 0, 1, 0,
+//     0, 1.0, 0, 0, 1, 0,
+//     0, 0, 0, 0, 1, 0,
+//     0, 0, 0.8, 0, 0, 1,
+//     0, 0, 1, 0, 0, 1,
+//     0, 0, 0, 0, 0, 1};
 
-    // unsigned int debug_line_VBO, dubug_line_VAO;
-    // glGenVertexArrays(1, &dubug_line_VAO);
-    // glGenBuffers(1, &debug_line_VBO);
+// unsigned int debug_line_VBO, dubug_line_VAO;
+// glGenVertexArrays(1, &dubug_line_VAO);
+// glGenBuffers(1, &debug_line_VBO);
 
-    // glBindBuffer(GL_ARRAY_BUFFER, debug_line_VBO);
-    // glBufferData(GL_ARRAY_BUFFER, sizeof(debug_line_vertices), debug_line_vertices, GL_STATIC_DRAW);
-    // glBindVertexArray(dubug_line_VAO);
+// glBindBuffer(GL_ARRAY_BUFFER, debug_line_VBO);
+// glBufferData(GL_ARRAY_BUFFER, sizeof(debug_line_vertices), debug_line_vertices, GL_STATIC_DRAW);
+// glBindVertexArray(dubug_line_VAO);
 
-    // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
-    // glEnableVertexAttribArray(0);
-    // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
-    // glEnableVertexAttribArray(1);
+// glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
+// glEnableVertexAttribArray(0);
+// glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
+// glEnableVertexAttribArray(1);
 
-    // Shader Shader_debug_line("MC_Shaders/vs_debugline.glsl", "MC_Shaders/fs_debugline.glsl");
-    #pragma endregion
+// Shader Shader_debug_line("MC_Shaders/vs_debugline.glsl", "MC_Shaders/fs_debugline.glsl");
+#pragma endregion
 
     // Step4_生成文本
 #pragma region 生成文本
