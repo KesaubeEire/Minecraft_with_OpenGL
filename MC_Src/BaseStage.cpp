@@ -40,7 +40,7 @@ const unsigned int SCR_WIDTH = 1280;
 const unsigned int SCR_HEIGHT = 720;
 
 // camera
-Camera camera(glm::vec3(15, 30, 15), glm::vec3(0.0f, 1.0f, 0.0f), -90, -90);
+Camera camera(glm::vec3(15, 30, 15), glm::vec3(0.0f, 1.0f, 0.0f), -90, -80);//这里改成80度防止万向节死锁
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -452,7 +452,7 @@ int main()
         log_position.append((int)camera.Position.y);
         log_position.addStr(" z:");
         log_position.append((int)camera.Position.z);
-        std::cout << log_position.content << std::endl;
+        // std::cout << log_position.content << std::endl;
 
         log_camfront.clear();
         log_camfront.addStr("Camera.Front: x:");
@@ -461,7 +461,7 @@ int main()
         log_camfront.append(camera.Front.y);
         log_camfront.addStr(" z:");
         log_camfront.append(camera.Front.z);
-        std::cout << log_camfront.content << std::endl;
+        // std::cout << log_camfront.content << std::endl;
 // endregion
 #pragma endregion
 
