@@ -34,27 +34,24 @@ void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
 void processInput(GLFWwindow *window);
 // 加载材质
 unsigned int loadTexture(char const *path);
-
-// settings
+// resolution settings
 const unsigned int SCR_WIDTH = 1280;
 const unsigned int SCR_HEIGHT = 720;
-
 // camera
 Camera camera(glm::vec3(15, 30, 15), glm::vec3(0.0f, 1.0f, 0.0f), -90, -80); //这里改成80度防止万向节死锁
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
-
 // timing
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 float ShownTime = 0.0f;
 string fpsNum;
-
 // cursor
 bool isCursorHidden;
 // log
 bool isLogShown = true;
+
 /////////////////////////////// --1--Log String Worker
 struct LogString
 {
@@ -99,6 +96,7 @@ struct LogString
 
 /// Holds all state information relevant to
 /// a character as loaded using FreeType
+// 文字类
 struct Character
 {
     GLuint TextureID;   // ID handle of the glyph texture
@@ -413,13 +411,11 @@ int main()
 #pragma endregion
 
     // Step5_排列方块位置
-    // 管理Block位置数组
-
-    // 读取地图信息
+    // map 读取地图信息
     map_generate mapGenerate;
     auto map = mapGenerate.GenerateMap();
 
-    // log信息
+    // Step6_log信息
     LogString log_position;
     LogString log_camfront;
 
@@ -536,29 +532,36 @@ int main()
             {
                 for (int i = 0; i <= point; i++)
                 {
-                    if (i == point)
+                    //      1.   排除不需要渲染的被遮挡方块
+                    // if (i == 0 || i == point)
+                    if (map_generate::IsExposed(map, mapGenerate, Row, Col, i))
                     {
-                        // 渲染贴图:草皮贴图
-                        block_GrassSoil.Render();
-                    }
-                    else if (i < point - 4)
-                    {
-                        block_Stone.Render();
-                    }
-                    else
-                    {
-                        // 渲染贴图:土块贴图
-                        block_Soli.Render();
-                    }
+                        //  2. 开始渲染被筛选过的方块
+                        if (i == point)
+                        {
+                            // 渲染贴图:草皮贴图
+                            block_GrassSoil.Render();
+                        }
+                        else if (i < point - 4)
+                        {
+                            // 渲染贴图:石块贴图
+                            block_Stone.Render();
+                        }
+                        else
+                        {
+                            // 渲染贴图:土块贴图
+                            block_Soli.Render();
+                        }
 
-                    glm::vec3 cubePositions = glm::vec3(Row, i, Col);
-                    // calculate the model matrix for each object
-                    // and pass it to shader before drawing
-                    glm::mat4 model;
-                    model = glm::translate(model, cubePositions);
-                    Shader_Block_Grass.setMat4("model", model);
+                        glm::vec3 cubePositions = glm::vec3(Row, i, Col);
+                        // calculate the model matrix for each object
+                        // and pass it to shader before drawing
+                        glm::mat4 model;
+                        model = glm::translate(model, cubePositions);
+                        Shader_Block_Grass.setMat4("model", model);
 
-                    glDrawArrays(GL_TRIANGLES, 0, 36);
+                        glDrawArrays(GL_TRIANGLES, 0, 36);
+                    }
                 }
                 Col++;
             }
@@ -576,11 +579,14 @@ int main()
         // Render Text
         if (isLogShown)
         {
+
             // RenderText(Shader_Font, "MineCraft_OpenGL", 0, SCR_HEIGHT - 15, 0.3f, glm::vec3(0.3, 0.7f, 0.9f));
             // RenderText(Shader_Font, fpsINFO, 0, SCR_HEIGHT - 30, 0.3f, glm::vec3(0.5, 0.8f, 0.2f));
             // RenderText(Shader_Font, log_position.content, 0, SCR_HEIGHT - 45, 0.3f, glm::vec3(0, 0.8f, 0.8f));
             // RenderText(Shader_Font, log_camfront.content, 0, SCR_HEIGHT - 60, 0.3f, glm::vec3(0, 0.8f, 0.8f));
 
+            // 这里摸索了蛮久怎么调整位置
+            // title | fpsInfo | 位置信息 | 摄像机信息
             RenderText(Shader_Font, "MineCraft_OpenGL", 0, SCR_HEIGHT - text_interval, text_interval / 50, glm::vec3(0.3, 0.7f, 0.9f));
             RenderText(Shader_Font, fpsINFO, 0, SCR_HEIGHT - text_interval * 2, text_interval / 50, glm::vec3(0.5, 0.8f, 0.2f));
             RenderText(Shader_Font, log_position.content, 0, SCR_HEIGHT - text_interval * 3, text_interval / 50, glm::vec3(0, 0.8f, 0.8f));

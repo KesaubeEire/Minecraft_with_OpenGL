@@ -115,6 +115,42 @@
 					<DistClean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="Octree_Demo">
+				<Option output="/Users/w/CLionProjects/MineCraft_OpenGL_Version/build/Octree_Demo" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/w/CLionProjects/MineCraft_OpenGL_Version/build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/w/CLionProjects/MineCraft_OpenGL_Version/include"/>
+					<Add directory="/Users/w/CLionProjects/MineCraft_OpenGL_Version/GLAD/include"/>
+					<Add directory="/Users/w/CLionProjects/MineCraft_OpenGL_Version/glm/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/Makefile&quot;  VERBOSE=1 Octree_Demo"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Octree_Demo/fast">
+				<Option output="/Users/w/CLionProjects/MineCraft_OpenGL_Version/build/Octree_Demo" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/w/CLionProjects/MineCraft_OpenGL_Version/build"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/w/CLionProjects/MineCraft_OpenGL_Version/include"/>
+					<Add directory="/Users/w/CLionProjects/MineCraft_OpenGL_Version/GLAD/include"/>
+					<Add directory="/Users/w/CLionProjects/MineCraft_OpenGL_Version/glm/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/Makefile&quot;  VERBOSE=1 Octree_Demo/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/Users/w/CLionProjects/MineCraft_OpenGL_Version/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 			<Target title="MCOG_001">
 				<Option output="/Users/w/CLionProjects/MineCraft_OpenGL_Version/build/MCOG_001" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/Users/w/CLionProjects/MineCraft_OpenGL_Version/build"/>
@@ -214,6 +250,25 @@
 			<Option target="MCOG_001"/>
 		</Unit>
 		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/MC_Src/map_generate/map_generate.h">
+			<Option target="MCOG_001"/>
+		</Unit>
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/Octree_Demo/main.cpp">
+			<Option target="Octree_Demo"/>
+		</Unit>
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/Octree_Demo/object.cpp">
+			<Option target="Octree_Demo"/>
+			<Option target="MCOG_001"/>
+		</Unit>
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/Octree_Demo/object.h">
+			<Option target="Octree_Demo"/>
+			<Option target="MCOG_001"/>
+		</Unit>
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/Octree_Demo/octree_node.cpp">
+			<Option target="Octree_Demo"/>
+			<Option target="MCOG_001"/>
+		</Unit>
+		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/Octree_Demo/octree_node.h">
+			<Option target="Octree_Demo"/>
 			<Option target="MCOG_001"/>
 		</Unit>
 		<Unit filename="/Users/w/CLionProjects/MineCraft_OpenGL_Version/OldRef/L_7_2_RenderingText.cpp">

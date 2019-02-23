@@ -64,12 +64,20 @@ add_subdirectory(dependencies)
 # add_executable(L_1_5_MultipleLights OldRef/L_1_5_MultipleLights.cpp  ${HEADER_FILES})
 # target_link_libraries(L_1_5_MultipleLights glfw)
 
+#====================OpenGL-Learning  Version
 add_executable(L_7_2_RenderText OldRef/L_7_2_RenderingText.cpp  ${HEADER_FILES})
 target_link_libraries(L_7_2_RenderText glfw)
 
-#====================Upper is OpenGL-Learning  Version
-#====================Lower is MineCraft-OpenGL Version
 
-add_executable(MCOG_001 MC_Src/BaseStage.cpp  ${HEADER_FILES} MC_Src/map_generate/map_generate.h)
+#====================MineCraft-OpenGL Version
+set(Octree_Demo_Source
+        Octree_Demo/object.h
+        Octree_Demo/object.cpp
+        Octree_Demo/octree_node.cpp
+        Octree_Demo/octree_node.h
+        )
+add_executable(Octree_Demo ${Octree_Demo_Source} Octree_Demo/main.cpp)
+
+#====================MineCraft-OpenGL Version
+add_executable(MCOG_001 MC_Src/BaseStage.cpp  ${HEADER_FILES}  ${Octree_Demo_Source} MC_Src/map_generate/map_generate.h)
 target_link_libraries(MCOG_001 glfw)
-

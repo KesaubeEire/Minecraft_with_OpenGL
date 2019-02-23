@@ -21,8 +21,8 @@ class map_generate
     //    const string dir_config = "MC_Config/map.txt";
 
     // 输出二维大小
-    const int regionX = 30;
-    const int regionY = 30;
+    const int regionX = 50;
+    const int regionY = 50;
 
     // 随机种子
     // 如果有指定种子就用指定种子
@@ -124,16 +124,9 @@ class map_generate
     }
 
   public:
-    vector<vector<int>> GenerateMap()
+    // 生成地图
+    vector<vector<int>> GenerateMap(bool isGenerateConfigtxt = true)
     {
-        // todo:Clion时放开注释
-        // 读写文件流
-        // ofstream mapFile(dir_config);
-        // if (!mapFile)
-        // {
-        //     // throw runtime_error("Map file Open Error!");
-        // }
-
         // 读取随机种子
         unsigned seed = GenerateRandom(randNum);
         cout << "地图生成seed:\t" << seed << endl;
@@ -157,26 +150,60 @@ class map_generate
                     height = 1;
 
                 height_row.push_back(height);
-                //                std::cout << height << "\t";
 
                 //记录总数
                 block_num += height;
-
-                //写文件
-                // todo:Clion时放开注释
-                // mapFile << height << "\t";
             }
             map.push_back(height_row);
-            //            std::cout << std::endl;
-
-            //写文件
-            // todo:Clion时放开注释
-            // mapFile << "\n"
-            //         << endl;
         }
         cout << "地图生成block:\t" << block_num << endl;
 
+        // 读写文件流
+        if (isGenerateConfigtxt)
+        {
+            ofstream mapFile(dir_config);
+            if (!mapFile)
+            {
+                throw runtime_error("Map file Open Error!");
+            }
+
+            for (auto row : map)
+            {
+                for (auto point : row)
+                {
+                    mapFile << point << "\t";
+                }
+                mapFile << "\n"
+                        << endl;
+            }
+        }
+
         return map;
+    }
+
+    // 遮挡算法
+    // map的vector | 行数row | 列数col | i的高度index
+    static bool IsExposed(const vector<vector<int>> &map, map_generate &generator, int &row, int &col, int &index)
+    {
+        int point = map[row][col];
+        if (row == 0 || col == 0 || row == generator.regionX - 1 || col == generator.regionY - 1)
+        {
+            return true;
+        }
+
+        // top && bottom
+        if (index == 0 || index == point)
+        {
+            return true;
+        }
+
+        // middle
+        if (index > map[row + 1][col] || index > map[row - 1][col] || index > map[row][col + 1] || index > map[row][col - 1])
+        {
+            return true;
+        }
+
+        return false;
     }
 };
 
