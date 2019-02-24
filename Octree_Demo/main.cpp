@@ -2,7 +2,9 @@
 #include "object.h"
 #include "octree_node.h"
 #include "octree_node.cpp" //模板分开写要包含h和cpp
+
 using namespace std;
+
 int main()
 {
     OctreeNode<Object> *octree = new OctreeNode<Object>(0, 0, 0, 200, 200, 200, ROOT, 1, 3);

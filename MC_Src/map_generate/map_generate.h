@@ -63,7 +63,7 @@ class map_generate
 
         //随机数分布对象，控制随机数范围5-15
         uniform_int_distribution<unsigned> u(0, 65535);
-        //        std::cout << "地图生成seed:\t" << seed << std::endl;
+        std::cout << "地图生成seed:\t" << seed << std::endl;
 
         //展示一下,没必要放上去
         //        for (int i = 0; i < 10; i++)
@@ -129,7 +129,6 @@ class map_generate
     {
         // 读取随机种子
         unsigned seed = GenerateRandom(randNum);
-        cout << "地图生成seed:\t" << seed << endl;
 
         // 记录生成量
         unsigned block_num = 0;
